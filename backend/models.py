@@ -5,17 +5,26 @@ from django.contrib.auth.models import AbstractUser
 
 
 # ==================== Course and Tag ====================
-class Course(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=10)
+    owner = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
     colour = ColorField(default='#FF0000')
 
     def __str__(self):
         return self.name
     
 
-class Tag(models.Model):
+class Course(models.Model):
+    grade_choices = [
+        ('9', 'Grade 9'),
+        ('10', 'Grade 10'),
+        ('11', 'Grade 11'),
+        ('12', 'Grade 12'),
+    ]
+
     name = models.CharField(max_length=100)
+    code = models.CharField(max_length=10)
+    grade = models.CharField(max_length=2, choices=grade_choices)
     colour = ColorField(default='#FF0000')
 
     def __str__(self):
@@ -52,10 +61,13 @@ class AchievementEntry(Entry):
 
 # ==================== User ====================
 class CustomUser(AbstractUser):
-    profile_pic = models.ImageField(upload_to='profile_pics', blank=True) 
+    profile_pic = models.ImageField(upload_to='profile_pics', blank=True, verbose_name='Profile picture') 
     bio = models.TextField(blank=True)
     graduating_year = models.IntegerField(blank=True, null=True)
-
+    courses = models.ManyToManyField(Course, blank=True, related_name='courses')
+    tags = models.ManyToManyField(Tag, blank=True, related_name='tags')
+    marks = models.ManyToManyField(MarkEntry, blank=True)
+    achievements = models.ManyToManyField(AchievementEntry, blank=True)
 
     def __str__(self):
         return self.username

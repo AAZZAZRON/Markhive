@@ -72,7 +72,7 @@ ReactJS front end with tailwindcss.
 - ask max how to throw login/logout from django to react
 
 I want a dashboard with graphs on startup, which the user can customize (i.e. pick thich ones to show up sort of like the github pins). 
-- maybe using panda or numpy ?? idk
+- maybe using panda or numpy ?? idk (charts.js)
 - possibly like most recent achievements / pie graph for number of entries, bar graph for idk something :clown:
 
 (this would be later dev)
