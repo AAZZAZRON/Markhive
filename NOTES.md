@@ -21,7 +21,7 @@ Basic Information
 - email
 - profile picture
 - bio
-- current grade
+- graduating year
 #### Marks and Achievements
 
 User creates tags for themselves, which they can add to each entry they create
