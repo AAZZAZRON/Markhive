@@ -91,3 +91,9 @@ probably i would also want a json dump feature (will prolly have to ask jason or
 - I want it to separate everything by user
 3. Figuring out how to make endpoints only accessible to my front end application
 4. Hosting
+
+
+## Resources
+[Middleware](https://github.com/CleitonDeLima/django-login-required-middleware) for login required to view endpoints
+
+[Viewset docs](https://www.django-rest-framework.org/api-guide/viewsets/)
