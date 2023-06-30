@@ -7,8 +7,8 @@ from .models import *
 
 # Create your views here.
 
-# TODO: make loginrequired default
-class CustomUserViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+
+class CustomUserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
