@@ -9,6 +9,7 @@ class BasicTag(models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
     colour = ColorField(default='#FF0000')
+    is_public = models.BooleanField(default=True)  # whether tag is public or not
 
     def __str__(self):
         return self.name
@@ -59,7 +60,7 @@ class AchievementEntry(Entry):
 
 # ==================== User ====================
 class CustomUser(AbstractUser):
-    profile_pic = models.ImageField(upload_to='profile_pics', blank=True, verbose_name='Profile picture') 
+    profile_pic = models.ImageField(upload_to='profile_pics', blank=True, null=True, verbose_name='Profile picture') # default pfp is done in frontend
     bio = models.TextField(blank=True)
     graduating_year = models.IntegerField(blank=True, null=True)
     courses = models.ManyToManyField(Course, blank=True, related_name='courses')

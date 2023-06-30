@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from backend import views as backend_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 # api endpoints
 router = routers.DefaultRouter()
@@ -27,4 +29,4 @@ urlpatterns = [
     path('admin/', admin.site.urls), # admin page
     path('api-auth/', include('rest_framework.urls')), # login and logout
     path('api/', include(router.urls)),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
