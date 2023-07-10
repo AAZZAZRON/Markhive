@@ -7,7 +7,6 @@ from django.contrib.auth.models import AbstractUser
 # ==================== Course and Tag ====================
 class BasicTag(models.Model):
     name = models.CharField(max_length=100)
-    owner = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
     colour = ColorField(default='#FF0000')
     is_public = models.BooleanField(default=True)  # whether tag is public or not
 
@@ -16,7 +15,8 @@ class BasicTag(models.Model):
     
 
 class Tag(BasicTag):
-    pass
+    owner = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
+
 
 
 class Course(BasicTag):
@@ -48,7 +48,7 @@ class MarkEntry(Entry):  # extends Entry
     course = models.ForeignKey(Course, on_delete=models.CASCADE)  # course code
     
     def __str__(self):
-        return self.name + " " + str(self.date) + " " + str(self.get_percent)
+        return self.name
     
     def get_percent(self):
         return round(self.numerator / self.denominator * 100, 2)

@@ -23,7 +23,8 @@ from django.conf.urls.static import static
 
 # api endpoints
 router = routers.DefaultRouter()
-router.register(r'users', backend_views.CustomUserViewSet)
+router.register(r'users', backend_views.UserViewSet, basename='users')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls), # admin page

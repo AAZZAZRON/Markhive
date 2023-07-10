@@ -25,30 +25,33 @@ class AchievementEntrySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'date', 'description', 'tags', 'is_public']
 
 
-class CustomUserSerializer(serializers.ModelSerializer):
+class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
-        # fields = ['id', 'username', 'email', 'first_name', 'last_name', 'courses', 'tags', 'mark_entries', 'achievement_entries']
+        fields = ['id', 'username', 'first_name', 'last_name', 'profile_pic', 'bio', 'graduating_year']
 
-    def to_representation(self, instance):
-        request = self.context.get('request')
-        user = request.user
-        if user == instance: # if the user is requesting their own data
-            return super().to_representation(instance)
-        else: # if the user is requesting someone else's data
-            print(repr(instance.profile_pic))
-            
-            return {
-                'id': instance.id,
-                'username': instance.username,
-                'first_name': instance.first_name,
-                'last_name': instance.last_name,
-                'profile_pic': instance.profile_pic.url if instance.profile_pic else None,
-                'bio': instance.bio,
-                'graduating_year': instance.graduating_year,
-                # 'courses': instance.courses,
-                # 'tags': instance.tags.filter(is_public=True),
-                # 'marks': instance.marks.filter(is_public=True),
-                # 'achievements': instance.achievements.filter(is_public=True),
-            }
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'first_name', 'last_name', 'profile_pic', 'bio', 'graduating_year', 'courses', 'tags', 'marks', 'achievements']
+    # def to_representation(self, instance):
+    #     request = self.context.get('request')
+    #     user = request.user
+    #     if user == instance: # if the user is requesting their own data
+    #         return super().to_representation(instance)
+    #     else: # if the user is requesting someone else's data     
+    #         print(instance.courses.all())       
+    #         return {
+    #             'id': instance.id,
+    #             'username': instance.username,
+    #             'first_name': instance.first_name,
+    #             'last_name': instance.last_name,
+    #             'profile_pic': instance.profile_pic.url if instance.profile_pic else None,
+    #             'bio': instance.bio,
+    #             'graduating_year': instance.graduating_year,
+    #             'courses': instance.courses.all().values('id', 'name', 'code', 'grade', 'colour'),
+    #             'tags': instance.tags.filter(is_public=True).values('id', 'name', 'colour')
+    #             # 'marks': instance.marks.filter(is_public=True),
+    #             # 'achievements': instance.achievements.filter(is_public=True),
+    #         }
