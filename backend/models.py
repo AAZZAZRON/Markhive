@@ -28,6 +28,7 @@ class Course(BasicTag):
     ]
     code = models.CharField(max_length=10)
     grade = models.CharField(max_length=2, choices=grade_choices)
+    # TODO: isCurrentCourse
 
 
 # ==================== Marks and Achievements ====================
