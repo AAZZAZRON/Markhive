@@ -10,7 +10,7 @@ class TagSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'name', 'code', 'grade', 'colour']
+        fields = ['id', 'name', 'code', 'grade', 'isCurrent', 'colour']
 
 
 class MarkEntrySerializer(serializers.ModelSerializer):
