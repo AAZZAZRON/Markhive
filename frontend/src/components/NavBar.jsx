@@ -1,7 +1,17 @@
+import React from 'react'
+import '../css/NavBar.scss'
 export default function NavBar() {
     return (
-        <div>
-            <h1>NavBar</h1>
+        <div className='nav-bar'>
+            <div class='left'>
+                <div>Logo</div>
+                <div>Marks</div>
+                <div>Achievements</div>
+                <div>Users</div>
+            </div>
+            <div>
+                Hello, Aaron
+            </div>
         </div>
     )
 }

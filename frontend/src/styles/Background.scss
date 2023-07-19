@@ -1,0 +1,16 @@
+.bg-container {
+    z-index: -1;
+}
+  
+.bg-rect {
+    position: absolute;
+    left: -170px;
+    top: 600px;
+    width: 2000px;
+    height: 1200px;
+    transform: rotate(40deg);
+    border-radius: 325px;
+    background: theme('colors.yellow.40');
+    z-index: -1;
+
+}

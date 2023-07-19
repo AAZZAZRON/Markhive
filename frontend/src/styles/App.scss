@@ -1,0 +1,19 @@
+body {
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif; /* TODO: add correct font */
+  color: theme('colors.blue.80');
+
+}
+
+.website {
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px none;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 1440px;
+  position: relative;
+  transform-origin: 0 0;
+  overflow: hidden;
+}

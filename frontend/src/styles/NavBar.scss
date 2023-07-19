@@ -1,0 +1,23 @@
+.nav-bar {
+    display: flex;
+    width: 1440px;
+    height: 123px;
+    padding: 15px 40px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    background: #FFECC8;
+
+    font-size: 32px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 54px; /* 168.75% */
+
+    .left {
+        display: flex;
+        padding: 0px 20px;
+        align-items: center;
+        gap: 60px;
+        flex: 1 0 0;
+    }
+}
