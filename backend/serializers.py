@@ -34,14 +34,14 @@ class AchievementEntrySerializer(serializers.ModelSerializer):
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'first_name', 'last_name', 'profile_pic', 'bio', 'graduating_year']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'profile_pic', 'bio', 'graduating_year']
 
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'first_name', 'last_name', 'profile_pic', 'bio', 'graduating_year', 'courses', 'tags', 'marks', 'achievements']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'profile_pic', 'bio', 'graduating_year', 'courses', 'tags', 'marks', 'achievements']
     
     
     def get_courses(self, instance):
@@ -81,8 +81,8 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'profile_pic': instance.profile_pic.url if instance.profile_pic else None,
             'bio': instance.bio,
             'graduating_year': instance.graduating_year,
-            'courses': self.get_courses(instance),
-            'tags': self.get_tags(instance, user == instance),
-            'marks': self.get_marks(instance, user == instance),
-            'achievements': self.get_achievements(instance, user == instance),
+            # 'courses': self.get_courses(instance),
+            # 'tags': self.get_tags(instance, user == instance),
+            # 'marks': self.get_marks(instance, user == instance),
+            # 'achievements': self.get_achievements(instance, user == instance),
         }

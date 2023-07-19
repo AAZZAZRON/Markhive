@@ -21,6 +21,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # Get from .env file
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG')
+PGPASSWORD = os.getenv('PGPASSWORD')
 
 
 # Quick-start development settings - unsuitable for production
@@ -86,8 +87,14 @@ WSGI_APPLICATION = 'Markhive.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': PGPASSWORD,
+        'HOST': 'containers-us-west-124.railway.app',
+        'PORT': '7993',
     }
 }
 
@@ -114,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # makes all endpoints require authentication
+        # 'rest_framework.permissions.IsAuthenticated',  # makes all endpoints require authentication
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
