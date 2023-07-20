@@ -1,6 +1,5 @@
 from django.urls import path, include
-from . import views_api as backend_views
-from . import views_auth as auth_views
+from . import views as backend_views
 from rest_framework_simplejwt.views import TokenRefreshView
 
 
@@ -38,13 +37,8 @@ user_urls = [
 
 # authentication endpoints
 auth_urls = [
-    path('', auth_views.index, name='index'),
-    path('login/', auth_views.login, name='login'),
-    path('logout/', auth_views.logout, name='logout'),
-    path('callback/', auth_views.callback, name='callback'),
-
     # JWT authentication
-    path('token/', auth_views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/', backend_views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 

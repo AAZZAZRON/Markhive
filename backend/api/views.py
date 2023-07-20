@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from .serializers import *
 from ..models import *
 from django.http import Http404, HttpResponse
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # -------- API Views -------- #
 
@@ -72,4 +74,18 @@ class UserViewSet(viewsets.ViewSet):
     
 
 
-    
+
+# ------- Customize JWT View ------- #
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+        # ...
+
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
