@@ -1,6 +1,9 @@
 import '../styles/Dashboard.scss'
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Dashboard() {
+    const { user, isAuthenticated, isLoading } = useAuth0();
+
     return (
         <div className='dashboard'>
             <div className='title'>Dashboard</div>
@@ -11,6 +14,7 @@ export default function Dashboard() {
             <div className='container'>
                 <div className='recent'>
                     <div className='title'>Recent Marks</div>
+                    {user && <div>{user.email}</div>}
                 </div>
                 <div className='recent'>
                     <div className='title'>Recent Marks</div>
