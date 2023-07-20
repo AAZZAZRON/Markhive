@@ -1,7 +1,11 @@
 from django.urls import path, include
-from . import views as backend_views
+from . import views_api as backend_views
+from . import views_auth as auth_views
+from rest_framework_simplejwt.views import TokenRefreshView
 
 
+
+# -------- API Views -------- #
 user_list = backend_views.UserViewSet.as_view({
     'get': 'list',
 })
@@ -31,7 +35,24 @@ user_urls = [
     path('tags/', user_tags, name='user-tags'),
 ]
 
+
+# authentication endpoints
+auth_urls = [
+    path('', auth_views.index, name='index'),
+    path('login/', auth_views.login, name='login'),
+    path('logout/', auth_views.logout, name='logout'),
+    path('callback/', auth_views.callback, name='callback'),
+
+    # JWT authentication
+    path('token/', auth_views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]
+
+
+# api urls
 urlpatterns = [
     path('users/', user_list, name='user-list'),
     path('user/<str:username>/', include(user_urls)),
+    path('', include(auth_urls)),
 ]
+

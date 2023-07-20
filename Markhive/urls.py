@@ -16,22 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
-from backend import views as backend_views
 from django.conf import settings
 from django.conf.urls.static import static
 
 
-auth_urls = [
-    path('', backend_views.index, name='index'),
-    path('login/', backend_views.login, name='login'),
-    path('logout/', backend_views.logout, name='logout'),
-    path('callback/', backend_views.callback, name='callback'),
-]
 
 urlpatterns = [
     path('admin/', admin.site.urls), # admin page
-    # path('api-auth/', include('rest_framework.urls')), # login and logout
-    path('api/', include('backend.api.urls')), # user api
-    path('', include(auth_urls)), # auth0
+    path('api/', include('backend.api.urls')), # api
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
