@@ -56,8 +56,16 @@ api_urls = [
     path('user/<str:username>/', include(user_urls)),
 ]
 
+auth_urls = [
+    path('', backend_views.index, name='index'),
+    path('login/', backend_views.login, name='login'),
+    path('logout/', backend_views.logout, name='logout'),
+    path('callback/', backend_views.callback, name='callback'),
+]
+
 urlpatterns = [
     path('admin/', admin.site.urls), # admin page
-    path('api-auth/', include('rest_framework.urls')), # login and logout
+    # path('api-auth/', include('rest_framework.urls')), # login and logout
     path('api/', include(api_urls)), # user api
+    path('', include(auth_urls)), # auth0
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

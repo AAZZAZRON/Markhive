@@ -12,6 +12,7 @@ module.exports = {content: [
         80: '#EEC77E',
         60: '#F1D092',
         40: '#FCEED5',
+        20: '#FFF9EE',
       },
       blue: {
         80: '#002A48',

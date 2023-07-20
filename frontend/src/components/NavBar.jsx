@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/NavBar.scss'
+import '../styles/NavBar.scss'
 export default function NavBar() {
     return (
         <div className='nav-bar'>
