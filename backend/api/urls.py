@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views as backend_views
+from .. import views as root_views
 from rest_framework_simplejwt.views import TokenRefreshView
 
 
@@ -48,5 +49,7 @@ urlpatterns = [
     path('users/', user_list, name='user-list'),
     path('user/<str:username>/', include(user_urls)),
     path('', include(auth_urls)),
+    path('public/', root_views.public, name='public'),
+    path('private/', root_views.private, name='private'),
 ]
 
