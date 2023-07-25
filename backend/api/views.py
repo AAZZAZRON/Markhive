@@ -4,10 +4,10 @@ from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
 from .serializers import *
 from ..models import *
-from django.http import Http404, HttpResponse
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 # -------- API Views -------- #
 
 """
@@ -15,6 +15,9 @@ User ViewSets
 """
 class UserViewSet(viewsets.ViewSet):
     # get all users
+    permission_classes = [AllowAny]
+
+
     def list(self, request):
         queryset = CustomUser.objects.all()
         serializer = UserListSerializer(queryset, many=True)
