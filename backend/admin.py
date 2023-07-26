@@ -29,7 +29,7 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = [
         ('Personal Information', {'fields': ['username', 'profile_pic', 'email', 'first_name', 'last_name', 'bio', 'graduating_year']}),
         ('Permissions', {'fields': ['is_superuser', 'is_staff', 'is_active']}),
-        ('Courses', {'fields': ['courses']}),
+        ('Courses', {'fields': ['all_courses', 'current_courses']}),
         ('Tags', {'fields': ['tags']}),
         ('Marks', {'fields': ['marks']}),
         ('Achievements', {'fields': ['achievements']}),

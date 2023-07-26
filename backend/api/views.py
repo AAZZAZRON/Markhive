@@ -57,10 +57,10 @@ class UserViewSet(viewsets.ViewSet):
     
 
     # get user courses
-    def getCourses(self, request, username=None):
+    def getAllCourses(self, request, username=None):
         queryset = CustomUser.objects.all()
         user = get_object_or_404(queryset, username=username)
-        serializer = CourseSerializer(user.courses.all(), many=True)
+        serializer = CourseSerializer(user.all_courses.all(), many=True)
         return Response(serializer.data)
     
 
@@ -78,17 +78,17 @@ class UserViewSet(viewsets.ViewSet):
 
 
 
-# ------- Customize JWT View ------- #
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
+# # ------- Customize JWT View ------- #
+# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     @classmethod
+#     def get_token(cls, user):
+#         token = super().get_token(user)
 
-        # Add custom claims
-        token['username'] = user.username
-        # ...
+#         # Add custom claims
+#         token['username'] = user.username
+#         # ...
 
-        return token
+#         return token
 
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
+# class MyTokenObtainPairView(TokenObtainPairView):
+#     serializer_class = MyTokenObtainPairSerializer

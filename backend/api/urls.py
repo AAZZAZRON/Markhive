@@ -36,19 +36,19 @@ user_urls = [
 ]
 
 
-# authentication endpoints
-auth_urls = [
-    # JWT authentication
-    path('token/', backend_views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-]
+# # authentication endpoints
+# auth_urls = [
+#     # JWT authentication
+#     path('token/', backend_views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+#     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+# ]
 
 
 # api urls
 urlpatterns = [
     path('users/', user_list, name='user-list'),
     path('user/<str:username>/', include(user_urls)),
-    path('', include(auth_urls)),
+    # path('', include(auth_urls)),
     path('public/', root_views.public, name='public'),
     path('private/', root_views.private, name='private'),
 ]

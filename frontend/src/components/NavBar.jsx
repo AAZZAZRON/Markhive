@@ -1,13 +1,9 @@
 import React from 'react'
 import '../styles/NavBar.scss'
-import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from './Auth0/LoginButton';
-import LogoutButton from './Auth0/LogoutButton';
 
 
-import '../css/NavBar.scss'
+
 export default function NavBar() {
-    const { user, isAuthenticated, isLoading } = useAuth0();
 
     return (
         <div className='nav-bar'>
@@ -20,8 +16,8 @@ export default function NavBar() {
             <div>
                 
             </div>
-            {!user && <LoginButton />}
-            {user && <LogoutButton />}
+            {/* {!user && <LoginButton />}
+            {user && <LogoutButton />} */}
         </div>
     )
 }

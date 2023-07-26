@@ -1,36 +1,8 @@
 import { useState, useEffect } from 'react';
 import '../styles/Dashboard.scss'
-import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function Dashboard() {
-    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-    
-
-    useEffect(() => {
-        const callApi = async () => {
-            const domain = "aazzazron.us.auth0.com";
-
-            const accessToken = await getAccessTokenSilently({
-                authorizationParams: {
-                    audience: `http://localhost:8000/api/`,
-                    // scope: "read:data",
-                },
-            });
-
-
-            const response = await fetch('http://localhost:8000/api/private', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            })
-            const data = await response.json()
-            
-            console.log(accessToken)
-            console.log(data)
-        }
-        if (isAuthenticated) callApi()
-    }, [isAuthenticated, getAccessTokenSilently])
 
 
     return (

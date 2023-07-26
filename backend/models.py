@@ -8,7 +8,6 @@ from django.contrib.auth.models import AbstractUser
 class BasicTag(models.Model):
     name = models.CharField(max_length=100)
     colour = ColorField(default='#FF0000')
-    is_public = models.BooleanField(default=True)  # whether tag is public or not
 
     def __str__(self):
         return self.name
@@ -16,7 +15,7 @@ class BasicTag(models.Model):
 
 class Tag(BasicTag):
     owner = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
-
+    is_public = models.BooleanField(default=True)  # whether tag is public or not
 
 
 class Course(BasicTag):
@@ -28,7 +27,6 @@ class Course(BasicTag):
     ]
     code = models.CharField(max_length=10)
     grade = models.CharField(max_length=2, choices=grade_choices)
-    isCurrent = models.BooleanField(default=True)  # whether course is current or not
 
 
 # ==================== Marks and Achievements ====================
@@ -64,7 +62,8 @@ class CustomUser(AbstractUser):
     profile_pic = models.ImageField(upload_to='profile_pics', blank=True, null=True, verbose_name='Profile picture') # default pfp is done in frontend
     bio = models.TextField(blank=True)
     graduating_year = models.IntegerField(blank=True, null=True)
-    courses = models.ManyToManyField(Course, blank=True, related_name='courses')
+    all_courses = models.ManyToManyField(Course, blank=True, related_name='all_courses')
+    current_courses = models.ManyToManyField(Course, blank=True, related_name='current_courses')
     tags = models.ManyToManyField(Tag, blank=True, related_name='tags')
     marks = models.ManyToManyField(MarkEntry, blank=True)
     achievements = models.ManyToManyField(AchievementEntry, blank=True)

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from backend import views as backend_views
+from backend.api import views as backend_views
 
 
 user_list = backend_views.UserViewSet.as_view({
@@ -34,7 +34,7 @@ user_achievements = backend_views.UserViewSet.as_view({
     'get': 'getAchievements',
 })
 user_courses = backend_views.UserViewSet.as_view({
-    'get': 'getCourses',
+    'get': 'getAllCourses',
 })
 user_tags = backend_views.UserViewSet.as_view({
     'get': 'getTags',
