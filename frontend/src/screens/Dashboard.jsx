@@ -18,6 +18,7 @@ export default function Dashboard() {
                 },
             });
 
+
             const response = await fetch('http://localhost:8000/api/private', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`

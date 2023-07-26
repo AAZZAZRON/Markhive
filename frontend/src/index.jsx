@@ -15,8 +15,8 @@ root.render(
           audience: process.env.REACT_APP_API_IDENTIFIER,
           scope: "read:current_user",
         }}
-        // cacheLocation="localstorage"
-        // useRefreshTokens={true}
+        cacheLocation="localstorage"
+        useRefreshTokens={true}
       >
       <App />
     </Auth0Provider>
