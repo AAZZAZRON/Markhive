@@ -18,10 +18,45 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from backend import views as backend_views
 
 
+user_list = backend_views.UserViewSet.as_view({
+    'get': 'list',
+})
+user_detail = backend_views.UserViewSet.as_view({
+    'get': 'retrieve',
+})
+user_marks = backend_views.UserViewSet.as_view({
+    'get': 'getMarks',
+})
+user_achievements = backend_views.UserViewSet.as_view({
+    'get': 'getAchievements',
+})
+user_courses = backend_views.UserViewSet.as_view({
+    'get': 'getCourses',
+})
+user_tags = backend_views.UserViewSet.as_view({
+    'get': 'getTags',
+})
+
+
+# api endpoints
+user_urls = [
+    path('', user_detail, name='user-detail'),
+    path('marks/', user_marks, name='user-marks'),
+    path('achievements/', user_achievements, name='user-achievements'),
+    path('courses/', user_courses, name='user-courses'),
+    path('tags/', user_tags, name='user-tags'),
+]
+
+api_urls = [
+    path('users/', user_list, name='user-list'),
+    path('user/<str:username>/', include(user_urls)),
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls), # admin page
-    path('api/', include('backend.api.urls')), # api
+    path('api-auth/', include('rest_framework.urls')), # login and logout
+    path('api/', include(api_urls)), # user api
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

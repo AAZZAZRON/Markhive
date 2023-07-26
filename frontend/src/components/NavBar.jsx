@@ -5,6 +5,7 @@ import LoginButton from './Auth0/LoginButton';
 import LogoutButton from './Auth0/LogoutButton';
 
 
+import '../css/NavBar.scss'
 export default function NavBar() {
     const { user, isAuthenticated, isLoading } = useAuth0();
 

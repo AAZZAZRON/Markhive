@@ -42,7 +42,6 @@ export default function Dashboard() {
             <div className='container'>
                 <div className='recent'>
                     <div className='title'>Recent Marks</div>
-                    {user && <div>{user.email}</div>}
                 </div>
                 <div className='recent'>
                     <div className='title'>Recent Marks</div>
