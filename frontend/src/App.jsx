@@ -14,7 +14,7 @@ function App() {
         window.addEventListener("resize", resizeWindow);
     });
     return (
-        <div ref={ref} className='website'>
+        <div ref={ref}>
             <Base/>
         </div>
     );
