@@ -3,12 +3,14 @@ import { loginFields } from "../../constants/formFields"
 import Input from "./Input";
 import FormExtra from './FormExtra';
 import FormAction from './FormAction';
+import axios from 'axios';
+import ROUTES from '../../constants/routes';
 
 const fields=loginFields;
 let fieldsState = {};
 fields.forEach(field=>fieldsState[field.id]='');
 
-export default function Login(){
+export default function Login() {
     const [loginState,setLoginState]=useState(fieldsState);
 
     const handleChange = (e) => {
@@ -20,36 +22,39 @@ export default function Login(){
         authenticateUser();
     }
 
-    const authenticateUser = () => {
+    const authenticateUser = async () => {
         console.log(loginState);
+
+        const response = await axios.post(`${ROUTES.AUTH.LOGIN}/`, loginState).catch(err=>err.response);
+        
+
     }
 
 
     return(
         <form className="mt-8 space-y-6">
-        <div className="-space-y-px">
-            {
-                fields.map(field=>
-                        <Input
-                            key={field.id}
-                            handleChange={handleChange}
-                            value={loginState[field.id]}
-                            labelText={field.labelText}
-                            labelFor={field.labelFor}
-                            id={field.id}
-                            name={field.name}
-                            type={field.type}
-                            isRequired={field.isRequired}
-                            placeholder={field.placeholder}
-                    />
-                
-                )
-            }
-        </div>
+            <div className="-space-y-px">
+                {
+                    fields.map(field=>
+                            <Input
+                                key={field.id}
+                                handleChange={handleChange}
+                                value={loginState[field.id]}
+                                labelText={field.labelText}
+                                labelFor={field.labelFor}
+                                id={field.id}
+                                name={field.name}
+                                type={field.type}
+                                isRequired={field.isRequired}
+                                placeholder={field.placeholder}
+                        />
+                    
+                    )
+                }
+            </div>
 
-       
-        <FormExtra/>
-        <FormAction handleSubmit={handleSubmit} text="Login"/>
-      </form>
+            <FormExtra/>
+            <FormAction handleSubmit={handleSubmit} text="Login"/>
+        </form>
     )
 }
