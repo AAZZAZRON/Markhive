@@ -133,23 +133,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',  # makes all endpoints require authentication
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',  # for JWT authentication
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # for JWT authentication
     ],
 }
 
-JWT_AUTH = {
-    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
-        'backend.utils.jwt_get_username_from_payload_handler',
-    'JWT_DECODE_HANDLER':
-        'backend.utils.jwt_decode_token',
-    'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': 'http://localhost:8000/api/',
-    'JWT_ISSUER': 'https://aazzazron.us.auth0.com/',
-    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-}
 
 # JWT authentication
 SIMPLE_JWT = {
@@ -183,7 +170,7 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 
-    "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
+    "TOKEN_OBTAIN_SERIALIZER": "backend.auth.serializers.MyTokenObtainPairSerializer",
     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",

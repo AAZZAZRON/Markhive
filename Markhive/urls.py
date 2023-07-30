@@ -19,6 +19,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from backend.api import views as backend_views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView
+)
 
 
 user_list = backend_views.UserViewSet.as_view({
@@ -53,10 +58,14 @@ user_urls = [
 api_urls = [
     path('users/', user_list, name='user-list'),
     path('user/<str:username>/', include(user_urls)),
+
+    # auth
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # refresh token
+    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'), # verify token
 ]
 
 urlpatterns = [
     path('admin/', admin.site.urls), # admin page
-    path('api-auth/', include('rest_framework.urls')), # login and logout
-    path('api/', include(api_urls)), # user api
+    path('api/', include(api_urls)), # user and auth api
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
