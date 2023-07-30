@@ -11,20 +11,18 @@ export default function Base() {
 
     return (
         <>
-        <div className="min-h-full h-screen flex items-center justify-center py-12 px-4">
-        <div className="max-w-md w-full space-y-8">
-            {/* <NavBar/> */}
+        {/* <div className="min-h-full h-screen flex items-center justify-center py-12 px-4"> */}
             <BrowserRouter>
+                <NavBar/>
                 <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/signup" element={<SignupPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="*" element={<NoPage />} />
                 </Routes>
+                {/* <Background/> */}
             </BrowserRouter>
-            <Background/>
-        </div>
-        </div>
+        {/* </div> */}
         </>
     );
 }
