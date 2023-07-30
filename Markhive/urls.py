@@ -58,8 +58,9 @@ user_urls = [
 api_urls = [
     path('users/', user_list, name='user-list'),
     path('user/<str:username>/', include(user_urls)),
+]
 
-    # auth
+auth_urls = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # refresh token
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'), # verify token
@@ -67,5 +68,6 @@ api_urls = [
 
 urlpatterns = [
     path('admin/', admin.site.urls), # admin page
-    path('api/', include(api_urls)), # user and auth api
+    path('api/', include(api_urls)), # user urls
+    path('auth/', include(auth_urls)), # auth urls
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

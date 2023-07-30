@@ -19,6 +19,10 @@ class UserViewSet(viewsets.ViewSet):
 
 
     def list(self, request):
+        if request.user.is_authenticated:
+            print("authenticated")
+        else:
+            print("not authenticated")
         queryset = CustomUser.objects.all()
         serializer = UserListSerializer(queryset, many=True)
         return Response(serializer.data)
