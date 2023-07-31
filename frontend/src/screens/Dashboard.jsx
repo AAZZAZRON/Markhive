@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 import '../styles/Dashboard.scss'
 
 
-export default function Dashboard() {
 
+export default function Dashboard() {
+    const { user, isAuthenticated } = useContext(AuthContext);
 
     return (
         <div className='dashboard'>
@@ -13,7 +15,7 @@ export default function Dashboard() {
             </svg>
             <div className='container'>
                 <div className='recent'>
-                    <div className='title'>Recent Marks</div>
+                    <div className='title'>{isAuthenticated && user.username}</div>
                 </div>
                 <div className='recent'>
                     <div className='title'>Recent Marks</div>

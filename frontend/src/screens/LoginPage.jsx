@@ -1,7 +1,14 @@
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/auth/Header";
 import Login from "../components/auth/Login";
 
 export default function LoginPage() {
+    const { isAuthenticated } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    if (isAuthenticated) navigate('/');
 
     return (
         <>

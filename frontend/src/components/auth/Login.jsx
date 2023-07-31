@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { loginFields } from "../../constants/formFields"
 import Input from "./Input";
 import FormExtra from './FormExtra';
 import FormAction from './FormAction';
-import axios from 'axios';
-import ROUTES from '../../constants/routes';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import { toast } from 'react-toastify';
 
 const fields=loginFields;
 let fieldsState = {};
@@ -12,22 +13,18 @@ fields.forEach(field=>fieldsState[field.id]='');
 
 export default function Login() {
     const [loginState,setLoginState]=useState(fieldsState);
+    const navigate = useNavigate();
+    const { loginUser } = useContext(AuthContext);
 
+
+    
     const handleChange = (e) => {
         setLoginState({...loginState,[e.target.id]:e.target.value})
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        authenticateUser();
-    }
-
-    const authenticateUser = async () => {
-        console.log(loginState);
-
-        const response = await axios.post(`${ROUTES.AUTH.LOGIN}/`, loginState).catch(err=>err.response);
-        
-
+        await loginUser(loginState);
     }
 
 
