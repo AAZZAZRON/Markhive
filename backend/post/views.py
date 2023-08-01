@@ -7,7 +7,6 @@ from rest_framework.permissions import AllowAny
 from rest_framework.decorators import permission_classes
 
 @csrf_exempt
-@require_http_methods(['POST'])
 @permission_classes([AllowAny])
 def signup(request):
     message = {'message': 'Request method not allowed', 'success': False}

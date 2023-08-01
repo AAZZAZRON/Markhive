@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     // refresh tokens after 4 minutes
     useEffect(() => {
         if (loading) { // initial render, update access token
-            updateTokens();
+            if (accessToken && refreshToken) updateTokens();
             setLoading(false);
         }
 
@@ -95,6 +95,13 @@ export const AuthProvider = ({ children }) => {
         console.log(signupState);
         const response = await axios.post(`${ROUTES.POST.SIGNUP}/`, signupState).catch(err=>err.response);
         console.log(response);
+        if (response.status === 200) {
+            if (response.data.success) {
+                navigate('/');
+                navigate('/login');
+                toast.success(response.data.message);
+            } else toast.error(response.data.message);
+        } else toast.error(response.data.detail);
     }
 
 
