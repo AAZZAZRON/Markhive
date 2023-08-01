@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+    // initial states (check local storage)
     const [accessToken, setAccessToken] = useState(() => localStorage.getItem('access_token') || null);
     const [refreshToken, setRefreshToken] = useState(() => localStorage.getItem('refresh_token') || null);
     const [isAuthenticated, setIsAuthenticated] = useState(() => (accessToken && refreshToken) ? true : false);
