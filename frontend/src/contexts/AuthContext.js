@@ -91,6 +91,13 @@ export const AuthProvider = ({ children }) => {
     }
 
 
+    const signupUser = async (signupState) => {
+        console.log(signupState);
+        const response = await axios.post(`${ROUTES.POST.SIGNUP}/`, signupState).catch(err=>err.response);
+        console.log(response);
+    }
+
+
     // logs user out
     const logoutUser = () => {
         removeStates();
@@ -106,6 +113,7 @@ export const AuthProvider = ({ children }) => {
         accessToken: accessToken,
         refreshToken: refreshToken,
         loginUser: loginUser,
+        signupUser: signupUser,
         logoutUser: logoutUser,
     };
         

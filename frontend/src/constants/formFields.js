@@ -9,16 +9,6 @@ const loginFields=[
         isRequired:true,
         placeholder:"Username"   
     },
-    // {
-    //     labelText:"Email address",
-    //     labelFor:"email-address",
-    //     id:"email-address",
-    //     name:"email",
-    //     type:"email",
-    //     autoComplete:"email",
-    //     isRequired:true,
-    //     placeholder:"Email address"   
-    // },
     {
         labelText:"Password",
         labelFor:"password",
@@ -51,6 +41,26 @@ const signupFields=[
         autoComplete:"email",
         isRequired:true,
         placeholder:"Email address"   
+    },
+    {
+        labelText:"First Name",
+        labelFor:"first-name",
+        id:"first-name",
+        name:"first_name",
+        type:"text",
+        autoComplete:"first-name",
+        isRequired:true,
+        placeholder:"First Name"
+    },
+    {
+        labelText:"Last Name",
+        labelFor:"last-name",
+        id:"last-name",
+        name:"last_name",
+        type:"text",
+        autoComplete:"last-name",
+        isRequired:true,
+        placeholder:"Last Name"
     },
     {
         labelText:"Password",

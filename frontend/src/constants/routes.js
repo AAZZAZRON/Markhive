@@ -8,7 +8,7 @@ const ROUTES = {
         VERIFY: `${BASEURL}/auth/verify`,
     },
     POST: {
-
+        SIGNUP: `${BASEURL}/post/signup`,
     },
 
     API: {

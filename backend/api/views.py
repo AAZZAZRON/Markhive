@@ -80,19 +80,3 @@ class UserViewSet(viewsets.ViewSet):
         return Response(serializer.data)
     
 
-
-
-# # ------- Customize JWT View ------- #
-# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-#     @classmethod
-#     def get_token(cls, user):
-#         token = super().get_token(user)
-
-#         # Add custom claims
-#         token['username'] = user.username
-#         # ...
-
-#         return token
-
-# class MyTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = MyTokenObtainPairSerializer

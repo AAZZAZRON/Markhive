@@ -1,24 +1,23 @@
 from django.urls import path, include
-from . import views as backend_views
-
+from . import views as api_views
 
 # -------- API Views -------- #
-user_list = backend_views.UserViewSet.as_view({
+user_list = api_views.UserViewSet.as_view({
     'get': 'list',
 })
-user_detail = backend_views.UserViewSet.as_view({
+user_detail = api_views.UserViewSet.as_view({
     'get': 'retrieve',
 })
-user_marks = backend_views.UserViewSet.as_view({
+user_marks = api_views.UserViewSet.as_view({
     'get': 'getMarks',
 })
-user_achievements = backend_views.UserViewSet.as_view({
+user_achievements = api_views.UserViewSet.as_view({
     'get': 'getAchievements',
 })
-user_courses = backend_views.UserViewSet.as_view({
+user_courses = api_views.UserViewSet.as_view({
     'get': 'getCourses',
 })
-user_tags = backend_views.UserViewSet.as_view({
+user_tags = api_views.UserViewSet.as_view({
     'get': 'getTags',
 })
 

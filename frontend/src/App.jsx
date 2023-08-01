@@ -29,7 +29,7 @@ function App() {
             pauseOnHover
             theme="light"
         /> 
-        <div ref={ref} className='h-max min-h-screen w-full min-w-max flex flex-col bg-blue-10'>
+        <div ref={ref} className='h-max min-h-screen w-full min-w-max flex flex-col'>
             <Base/>
         </div>
         </>
