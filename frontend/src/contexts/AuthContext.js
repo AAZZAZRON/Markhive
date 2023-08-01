@@ -9,38 +9,50 @@ import { toast } from "react-toastify";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [accessToken, setAccessToken] = useState(null);
-    const [refreshToken, setRefreshToken] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(null);
+    const [accessToken, setAccessToken] = useState(() => localStorage.getItem('access_token') || null);
+    const [refreshToken, setRefreshToken] = useState(() => localStorage.getItem('refresh_token') || null);
+    const [isAuthenticated, setIsAuthenticated] = useState(() => (accessToken && refreshToken) ? true : false);
+    const [user, setUser] = useState(() => (accessToken) ? jwt_decode(accessToken) : null);
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
 
 
-    // on initial load, check if user is authenticated and if tokens are valid
+    const setStates = (access_token, refresh_token) => {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+        setAccessToken(access_token);
+        setRefreshToken(refresh_token);
+        setUser(jwt_decode(access_token));
+        setIsAuthenticated(true);
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
+    }
+
+    const removeStates = () => {
+        delete axios.defaults.headers.common['Authorization'];
+        setAccessToken(null);
+        setRefreshToken(null);
+        setUser(null);
+        setIsAuthenticated(false);
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+    }
+
+    // refresh tokens after 4 minutes
     useEffect(() => {
-        const asyncFunc = async () => {
-            const access_token = localStorage.getItem('access_token');
-            const refresh_token = localStorage.getItem('refresh_token');
-            if (access_token && await verifyToken(access_token) && refresh_token && await verifyToken(refresh_token)) {
-                toast.success('Valid tokens!');
-                setAccessToken(access_token);
-                setRefreshToken(refresh_token);
-                setUser(jwt_decode(access_token));
-                setIsAuthenticated(true);
-                axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-            } else {
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-                setAccessToken(null);
-                setRefreshToken(null);
-                setUser(null);
-                setIsAuthenticated(false);
-                delete axios.defaults.headers.common['Authorization'];
-            }
+        if (loading) { // initial render, update access token
+            updateTokens();
+            setLoading(false);
         }
-        asyncFunc();
-    }, []);
+
+        const interval = setInterval(async () => { // refresh tokens every 4 minutes
+            if (accessToken && refreshToken) {
+                await updateTokens();
+            }
+        }, 4 * 60 * 1000); // 4 minutes
+
+        return () => clearInterval(interval);
+    }, [accessToken, refreshToken, loading]);
 
 
     // verify tokens
@@ -52,6 +64,18 @@ export const AuthProvider = ({ children }) => {
     }
 
 
+    // refresh tokens after 4 minutes
+    const updateTokens = async () => {
+        const response = await axios.post(`${ROUTES.AUTH.REFRESH}/`, { refresh: refreshToken }).catch(err=>err.response);
+        if (response.status === 200) {
+            setStates(response.data.access, response.data.refresh);
+            return true;
+        }
+        removeStates();
+        return false;
+    }
+
+
     // checks credentials with backend and logs user in if valid
     const loginUser = async (loginState) => {
         console.log(loginState)
@@ -59,29 +83,17 @@ export const AuthProvider = ({ children }) => {
         
         console.log(response);
         if (response.status === 200) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
-            setAccessToken(response.data.access);
-            setRefreshToken(response.data.refresh);
-            setUser(jwt_decode(response.data.access));
-            setIsAuthenticated(true);
-            localStorage.setItem('access_token', response.data.access);
-            localStorage.setItem('refresh_token', response.data.refresh);
-
-            toast.success('Logged in successfully!');
+            setStates(response.data.access, response.data.refresh);
             navigate(-1); // return to previous page
+            toast.success('Logged in successfully!');
         } else toast.error(response.data.detail);
     }
 
 
     // logs user out
     const logoutUser = () => {
-        setAccessToken(null);
-        setRefreshToken(null);
-        setUser(null);
-        setIsAuthenticated(false);
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        delete axios.defaults.headers.common['Authorization'];
+        removeStates();
+        navigate('/login');
         toast.success('Logged out successfully!');
     }
 
@@ -95,11 +107,11 @@ export const AuthProvider = ({ children }) => {
         loginUser: loginUser,
         logoutUser: logoutUser,
     };
-
+        
 
     return (
         <AuthContext.Provider value={contextData}>
-            {children}
+            {loading ? null : children}
         </AuthContext.Provider>
     );
 };

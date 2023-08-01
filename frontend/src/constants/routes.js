@@ -4,7 +4,7 @@ const ROUTES = {
     BASEURL: `${BASEURL}`,
     AUTH: {
         LOGIN: `${BASEURL}/auth/token`,
-        REFRESH: `${BASEURL}/auth/refresh`,
+        REFRESH: `${BASEURL}/auth/token/refresh`,
         VERIFY: `${BASEURL}/auth/verify`,
     },
     POST: {

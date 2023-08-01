@@ -5,7 +5,7 @@ import { AuthContext } from '../contexts/AuthContext'
 
 
 export default function NavBar() {
-    const { user, isAuthenticated } = useContext(AuthContext);
+    const { user, isAuthenticated, logoutUser } = useContext(AuthContext);
 
 
     const location = useLocation();
@@ -23,9 +23,18 @@ export default function NavBar() {
                 <div>Achievements</div>
                 <div>Users</div>
             </div>
+
+            {!isAuthenticated && 
             <a href='/login' class='hover:font-bold'>
                 Log In
             </a>
+            }
+
+            {isAuthenticated &&
+            <div onClick={logoutUser} class='hover:font-bold'>
+                Hello, {user.username}
+            </div>
+            }
         </div>
     )
 }
