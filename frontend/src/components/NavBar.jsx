@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import '../styles/NavBar.scss'
 import { useLocation } from 'react-router-dom'
-
+import { AuthContext } from '../contexts/AuthContext'
 
 
 export default function NavBar() {
+    const { user, isAuthenticated } = useContext(AuthContext);
+
+
     const location = useLocation();
     const noNavBar = ['/login', '/signup'] // pages with no nav bar
     if (noNavBar.includes(location.pathname)) {
         return (<></>)
     }
+
 
     return (
         <div className='relative flex w-full justify-between items-center bg-yellow-50 px-8 py-5 gap-16'>

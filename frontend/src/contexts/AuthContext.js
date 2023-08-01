@@ -19,21 +19,34 @@ export const AuthProvider = ({ children }) => {
 
     // on initial load, check if user is authenticated and if tokens are valid
     useEffect(() => {
-        const access_token = localStorage.getItem('access_token');
-        const refresh_token = localStorage.getItem('refresh_token');
-        if (access_token && verifyToken(access_token) && refresh_token && verifyToken(refresh_token)) {
-            setAccessToken(access_token);
-            setRefreshToken(refresh_token);
-            setUser(jwt_decode(access_token));
-            setIsAuthenticated(true);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+        const asyncFunc = async () => {
+            const access_token = localStorage.getItem('access_token');
+            const refresh_token = localStorage.getItem('refresh_token');
+            if (access_token && await verifyToken(access_token) && refresh_token && await verifyToken(refresh_token)) {
+                toast.success('Valid tokens!');
+                setAccessToken(access_token);
+                setRefreshToken(refresh_token);
+                setUser(jwt_decode(access_token));
+                setIsAuthenticated(true);
+                axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+            } else {
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                setAccessToken(null);
+                setRefreshToken(null);
+                setUser(null);
+                setIsAuthenticated(false);
+                delete axios.defaults.headers.common['Authorization'];
+            }
         }
+        asyncFunc();
     }, []);
 
 
     // verify tokens
     const verifyToken = async (token) => {
         const response = await axios.post(`${ROUTES.AUTH.VERIFY}/`, { token: token }).catch(err=>err.response);
+        toast.info(response.status);
         if (response.status === 200) return true;
         return false;
     }
@@ -56,8 +69,7 @@ export const AuthProvider = ({ children }) => {
 
             toast.success('Logged in successfully!');
             navigate(-1); // return to previous page
-        }
-        toast.error(response.data.detail);
+        } else toast.error(response.data.detail);
     }
 
 
@@ -69,6 +81,8 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        delete axios.defaults.headers.common['Authorization'];
+        toast.success('Logged out successfully!');
     }
 
 
