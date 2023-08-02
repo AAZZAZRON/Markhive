@@ -17,8 +17,8 @@ class UserViewSet(viewsets.ViewSet):
     # get all users
     permission_classes = [AllowAny]
 
-
     def list(self, request):
+        print(request.user)
         if request.user.is_authenticated:
             print("authenticated")
         else:
@@ -39,6 +39,7 @@ class UserViewSet(viewsets.ViewSet):
     # get user marks
     def getMarks(self, request, username=None):
         requesting_user = request.user or None
+        print(requesting_user, request.user.is_authenticated)
         queryset = CustomUser.objects.all()
         user = get_object_or_404(queryset, username=username)
         if user != requesting_user:

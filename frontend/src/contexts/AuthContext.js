@@ -41,10 +41,14 @@ export const AuthProvider = ({ children }) => {
 
     // refresh tokens after 4 minutes
     useEffect(() => {
-        if (loading) { // initial render, update access token
-            if (accessToken && refreshToken) updateTokens();
-            setLoading(false);
+        const initialRender = async () => {
+            if (loading) { // initial render, update access token
+                if (accessToken && refreshToken) await updateTokens();
+                setLoading(false);
+            }
         }
+
+        initialRender();
 
         const interval = setInterval(async () => { // refresh tokens every 4 minutes
             if (accessToken && refreshToken) {
@@ -119,6 +123,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: isAuthenticated,
         accessToken: accessToken,
         refreshToken: refreshToken,
+        loading: loading,
         loginUser: loginUser,
         signupUser: signupUser,
         logoutUser: logoutUser,

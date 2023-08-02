@@ -8,6 +8,7 @@ import SignupPage from "./screens/SignupPage";
 import LoginPage from "./screens/LoginPage";
 import { AuthProvider } from "./contexts/AuthContext";
 
+
 export default function Base() {
 
     return (

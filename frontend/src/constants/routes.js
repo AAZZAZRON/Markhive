@@ -12,7 +12,7 @@ const ROUTES = {
     },
 
     API: {
-        USERS: `${BASEURL}/api/users`,        
+        USERS: `${BASEURL}/api/users`,    
     }
 };
 
