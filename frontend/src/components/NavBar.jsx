@@ -2,10 +2,13 @@ import React, { useContext } from 'react'
 import '../styles/NavBar.scss'
 import { useLocation } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
+import { useSelector } from 'react-redux'
 
 
 export default function NavBar() {
-    const { user, isAuthenticated, logoutUser } = useContext(AuthContext);
+    const user = useSelector((state) => state.auth.user);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const { logoutUser } = useContext(AuthContext);
 
 
     const location = useLocation();

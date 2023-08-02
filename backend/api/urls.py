@@ -15,7 +15,7 @@ user_achievements = api_views.UserViewSet.as_view({
     'get': 'getAchievements',
 })
 user_courses = api_views.UserViewSet.as_view({
-    'get': 'getCourses',
+    'get': 'getAllCourses',
 })
 user_tags = api_views.UserViewSet.as_view({
     'get': 'getTags',
