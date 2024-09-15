@@ -1,20 +1,14 @@
 import './styles/App.scss';
 import { useRef, useEffect } from 'react';
 import Base from './Base';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-    // resize window on size change
-    const ref = useRef(null);
-    // useEffect(() => {
-    //     resizeWindow();
-    //     function resizeWindow() {
-    //         console.log(window.innerWidth);
-    //         ref.current.style.transform = `scale(${window.innerWidth / 1440})`;
-    //     };
-    //     window.addEventListener("resize", resizeWindow);
-    // });
+    const dispatch = useDispatch();        
+
+
     return (
         <>
         <ToastContainer
@@ -29,7 +23,7 @@ function App() {
             pauseOnHover
             theme="light"
         /> 
-        <div ref={ref} className='h-max min-h-screen w-full min-w-max flex flex-col'>
+        <div className='h-max min-h-screen w-full min-w-max flex flex-col'>
             <Base/>
         </div>
         </>

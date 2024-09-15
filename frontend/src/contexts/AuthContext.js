@@ -1,7 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import ROUTES from "../constants/routes";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,43 +10,14 @@ import { setStates, removeStates } from "../features/auth";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    // initial states (check local storage)
-    // const [accessToken, setAccessToken] = useState(() => localStorage.getItem('access_token') || null);
-    // const [refreshToken, setRefreshToken] = useState(() => localStorage.getItem('refresh_token') || null);
-    // const [isAuthenticated, setIsAuthenticated] = useState(() => (accessToken && refreshToken) ? true : false);
-    // const [user, setUser] = useState(() => (accessToken) ? jwt_decode(accessToken) : null);
-    // const [loading, setLoading] = useState(true);
-
     const accessToken = useSelector((state) => state.auth.accessToken);
     const refreshToken = useSelector((state) => state.auth.refreshToken);
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
 
     const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
-    // const setStates = (access_token, refresh_token) => {
-    //     axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-    //     setAccessToken(access_token);
-    //     setRefreshToken(refresh_token);
-    //     setUser(jwt_decode(access_token));
-    //     setIsAuthenticated(true);
-    //     localStorage.setItem('access_token', access_token);
-    //     localStorage.setItem('refresh_token', refresh_token);
-    // }
-
-    // const removeStates = () => {
-    //     delete axios.defaults.headers.common['Authorization'];
-    //     setAccessToken(null);
-    //     setRefreshToken(null);
-    //     setUser(null);
-    //     setIsAuthenticated(false);
-    //     localStorage.removeItem('access_token');
-    //     localStorage.removeItem('refresh_token');
-    // }
 
     // refresh tokens after 4 minutes
     useEffect(() => {

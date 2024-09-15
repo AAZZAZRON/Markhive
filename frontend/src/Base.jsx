@@ -7,6 +7,7 @@ import Background from "./components/Background";
 import SignupPage from "./screens/SignupPage";
 import LoginPage from "./screens/LoginPage";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LoadProvider } from "./contexts/LoadContext";
 
 
 export default function Base() {
@@ -15,16 +16,18 @@ export default function Base() {
         <>
         {/* <div className="min-h-full h-screen flex items-center justify-center py-12 px-4"> */}
             <BrowserRouter>
-                <AuthProvider>
-                    <NavBar/>
-                    <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/signup" element={<SignupPage />} />
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="*" element={<NoPage />} />
-                    </Routes>
-                    {/* <Background/> */}
-                </AuthProvider>
+                <LoadProvider>
+                    <AuthProvider>
+                        <NavBar/>
+                        <Routes>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/signup" element={<SignupPage />} />
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="*" element={<NoPage />} />
+                        </Routes>
+                        {/* <Background/> */}
+                    </AuthProvider>
+                </LoadProvider>
             </BrowserRouter>
         {/* </div> */}
         </>
